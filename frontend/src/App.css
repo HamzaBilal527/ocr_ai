@@ -1,0 +1,293 @@
+/* ===========================
+   App Shell
+   =========================== */
+
+.App {
+  text-align: center;                 /* keep original behavior */
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===========================
+   Header / Hero
+   =========================== */
+
+.App-header {
+  /* replaced hardcoded #282c34 with theme-based glass backdrop */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--text);
+  font-size: calc(10px + 2vmin);
+
+  /* transparent so page background from body shows; add subtle accent veil */
+  background:
+    radial-gradient(800px 400px at 80% 10%, color-mix(in oklab, var(--accent), transparent 88%), transparent 60%),
+    transparent;
+
+  padding: clamp(24px, 4vw, 48px);
+  gap: 18px;
+}
+
+/* Optional card wrapper if your header contains a block element you want to pop */
+.App-header .hero-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(var(--blur)) saturate(1.15);
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(1.15);
+  padding: clamp(20px, 3.2vw, 32px);
+  width: min(920px, 92vw);
+}
+
+/* ===========================
+   Logo & Animation
+   =========================== */
+
+.App-logo {
+  height: clamp(80px, 16vw, 160px);   /* replaced 40vmin for better control */
+  pointer-events: none;
+  filter: drop-shadow(0 6px 18px hsla(220 40% 2% / 0.15));
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg) }
+  to   { transform: rotate(360deg) }
+}
+
+/* Soft float (used when you want a gentle presence on static logos) */
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo.floaty {
+    animation:
+      App-logo-spin 20s linear infinite,
+      floatPulse 6s var(--ease) infinite alternate;
+  }
+}
+@keyframes floatPulse {
+  0%   { transform: translateY(0) rotate(0deg) scale(1) }
+  100% { transform: translateY(-4px) rotate(0deg) scale(1.02) }
+}
+
+/* ===========================
+   Links
+   =========================== */
+
+.App-link {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px dashed transparent;
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease), filter var(--dur) var(--ease);
+}
+.App-link:hover {
+  border-bottom-color: currentColor;
+  filter: brightness(1.05);
+}
+
+/* High-contrast link emphasis */
+html[data-theme="hc"] .App-link,
+body[data-theme="hc"] .App-link {
+  text-decoration: underline;
+  border-bottom: none;
+}
+
+/* ===========================
+   Utility: Glass Panel Row
+   =========================== */
+
+.app-row {
+  display: grid;
+  gap: clamp(12px, 2vw, 20px);
+  grid-template-columns: repeat(12, 1fr);
+  width: min(1100px, 92vw);
+  margin: 0 auto;
+}
+
+.app-panel {
+  grid-column: 1 / -1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(var(--blur)) saturate(1.1);
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(1.1);
+  padding: clamp(14px, 2.2vw, 22px);
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.app-panel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px hsla(220 40% 2% / 0.18);
+}
+
+/* ===========================
+   Toolbar / Theme Dock (optional)
+   =========================== */
+
+.theme-dock {
+  position: fixed;
+  inset: auto 16px 16px auto; /* bottom-right */
+  z-index: 50;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  backdrop-filter: blur(var(--blur));
+  -webkit-backdrop-filter: blur(var(--blur));
+  box-shadow: var(--shadow);
+}
+
+
+@media (min-width: 1100px) {
+  .theme-dock { inset: auto 24px 24px auto; }
+}
+
+.theme-btn {
+  -webkit-appearance: none;
+  appearance: none;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), background var(--dur) var(--ease), filter var(--dur) var(--ease);
+}
+.theme-btn:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in oklab, var(--accent), black 25%);
+}
+.theme-btn[aria-pressed="true"] {
+  background: linear-gradient(180deg,
+    color-mix(in oklab, var(--accent), white 8%),
+    color-mix(in oklab, var(--accent), black 6%)
+  );
+  color: var(--accent-ink);
+  border-color: color-mix(in oklab, var(--accent), black 25%);
+}
+
+/* ===========================
+   Form Hints / Badges
+   =========================== */
+
+.hint {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.badge-soft {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 12px;
+}
+
+/* ===========================
+   High-Contrast Adjustments
+   =========================== */
+
+html[data-theme="hc"] .app-panel,
+body[data-theme="hc"] .app-panel {
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+html[data-theme="hc"] .theme-dock {
+  box-shadow: none;
+}
+
+/* ===========================
+   Reduced Motion Tweaks
+   =========================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .app-panel:hover,
+  .theme-btn:hover {
+    transform: none;
+  }
+}
+
+/* ===========================
+   Background Bouncer (decorative)
+   =========================== */
+
+.bg-bounce {
+  position: fixed;
+  left: 6vw;              /* away from the theme dock (which is bottom-right) */
+  bottom: 36px;
+  width: clamp(200px, 22vw, 360px);
+  z-index: 0;             /* below your glass cards (header has z=10 already) */
+  pointer-events: none;
+  opacity: 0.14;          /* subtle; adjust 0.10–0.20 as you like */
+  filter: saturate(1.1);
+}
+
+.bg-bounce__img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transform-origin: center bottom;
+  animation: bgBounce 2.8s cubic-bezier(.25,.65,.35,1) infinite;
+  will-change: transform;
+}
+
+/* Soft “floor” shadow */
+.bg-bounce__shadow {
+  position: fixed;
+  left: calc(6vw + 12px);
+  bottom: 22px;
+  width: clamp(160px, 18vw, 300px);
+  height: clamp(18px, 2.6vw, 30px);
+  background: radial-gradient(ellipse at center,
+    rgba(0,0,0,.28) 0%,
+    rgba(0,0,0,.18) 35%,
+    rgba(0,0,0,0) 70%);
+  filter: blur(6px);
+  opacity: .55;
+  animation: bgSquish 2.8s cubic-bezier(.25,.65,.35,1) infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes bgBounce {
+  0%, 100%   { transform: translateY(0) scale(1); }
+  35%, 50%   { transform: translateY(-22vh) scale(1.02); }
+  90%        { transform: translateY(0) scale(.98); } /* impact */
+}
+
+@keyframes bgSquish {
+  0%, 100%   { transform: scaleX(1) scaleY(1); opacity: .55; }
+  50%        { transform: scaleX(.85) scaleY(.9); opacity: .35; }
+  90%        { transform: scaleX(1.18) scaleY(.6); opacity: .65; } /* impact */
+}
+
+/* Respect user settings */
+@media (prefers-reduced-motion: reduce) {
+  .bg-bounce__img,
+  .bg-bounce__shadow { animation: none; }
+}
+
+/* Hide in High-Contrast for clarity */
+html[data-theme="hc"] .bg-bounce,
+body[data-theme="hc"] .bg-bounce { display: none; }

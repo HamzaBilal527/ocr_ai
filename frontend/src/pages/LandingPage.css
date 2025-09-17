@@ -1,0 +1,366 @@
+/* ====================================
+   Landing Page — Glass UI (tokens from index.css)
+   ==================================== */
+
+/* Wrapper */
+.landing-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ====================================
+   HEADER (equal pill buttons)
+   ==================================== */
+
+.landing-header {
+  /* shared pill sizing */
+  --pill-h: 44px;
+  --pill-px: 18px;
+  --pill-gap: 14px;
+
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: clamp(12px, 2.4vw, 20px) clamp(16px, 4vw, 50px);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(var(--blur)) saturate(1.1);
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(1.1);
+  box-shadow: var(--shadow);
+}
+
+.logo {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  color: var(--text);
+}
+
+.landing-header nav ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: var(--pill-gap);
+  margin: 0;
+  padding: 0;
+}
+
+.landing-header nav ul li a {
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.98rem;
+  opacity: 0.9;
+  transition: opacity var(--dur) var(--ease), color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.landing-header nav ul li a:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+  color: color-mix(in oklab, var(--accent), var(--text) 20%);
+}
+
+/* --- MICRO-ALIGN: lift Get Started pill to match profile pill --- */
+.landing-header nav ul li > button {
+  margin-top: -2px; /* adjust to -3px if your avatar ring makes it look 1px low */
+}
+
+/* Equal pill style for header action + profile trigger */
+.landing-header nav ul li button,
+.profile-trigger {
+  -webkit-appearance: none;
+  appearance: none;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  height: var(--pill-h);
+  padding: 0 var(--pill-px);
+  border-radius: 999px;
+
+  font-weight: 700;
+  cursor: pointer;
+
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--accent), white 10%),
+    color-mix(in oklab, var(--accent), black 6%)
+  );
+  color: var(--accent-ink);
+
+  border: 1px solid color-mix(in oklab, var(--accent), black 25%);
+  backdrop-filter: blur(calc(var(--blur) * 0.6));
+  -webkit-backdrop-filter: blur(calc(var(--blur) * 0.6));
+  box-shadow: var(--shadow);
+
+  transition: filter var(--dur) var(--ease), transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.landing-header nav ul li button:hover,
+.profile-trigger:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+  border-color: color-mix(in oklab, var(--accent), black 30%);
+}
+
+/* Profile pic + text inside the same pill */
+.profile-pic {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  object-fit: cover;
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--accent), white 35%);
+}
+.username {
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--accent-ink);
+}
+.chev {
+  font-size: 12px;
+  opacity: 0.9;
+  color: var(--accent-ink);
+}
+
+/* Dropdown that opens from the profile pill */
+.profile-container {
+  position: relative;
+  margin-left: var(--pill-gap);
+  display: inline-block;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+}
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 180px;
+
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 6px 0;
+  z-index: 1000;
+
+  backdrop-filter: blur(var(--blur)) saturate(1.05);
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(1.05);
+
+  animation: fadeIn var(--dur) var(--ease);
+}
+.dropdown-item {
+  width: 100%;
+  text-align: left;
+  padding: 10px 14px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text);
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.dropdown-item:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+/* ====================================
+   HERO
+   ==================================== */
+
+.hero-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: clamp(16px, 3vw, 32px);
+  padding: clamp(40px, 8vw, 80px) clamp(16px, 4vw, 50px) clamp(24px, 6vw, 60px);
+  background:
+    radial-gradient(900px 400px at 100% 0%, color-mix(in oklab, var(--accent), transparent 90%), transparent 60%),
+    transparent;
+}
+
+.hero-text {
+  flex: 1 1 450px;
+  max-width: 560px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: clamp(16px, 3vw, 28px);
+  backdrop-filter: blur(var(--blur)) saturate(1.1);
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(1.1);
+}
+.hero-text h1 {
+  font-size: clamp(2rem, 4.8vw, 3rem);
+  margin-bottom: 14px;
+  color: var(--text);
+  letter-spacing: -0.3px;
+}
+.hero-text p {
+  font-size: clamp(1rem, 2.2vw, 1.15rem);
+  line-height: 1.65;
+  margin-bottom: 20px;
+  color: var(--text-muted);
+}
+
+/* CTA in hero (kept class) */
+.primary-btn {
+  border: 1px solid color-mix(in oklab, var(--accent), black 25%);
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--accent), white 8%),
+    color-mix(in oklab, var(--accent), black 6%)
+  );
+  color: var(--accent-ink);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(calc(var(--blur) * 0.5));
+  -webkit-backdrop-filter: blur(calc(var(--blur) * 0.5));
+  transition: filter var(--dur) var(--ease), transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.primary-btn:hover {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+  border-color: color-mix(in oklab, var(--accent), black 30%);
+}
+.primary-btn:active { transform: translateY(0); }
+
+/* Hero image */
+.hero-image img {
+  width: clamp(240px, 26vw, 340px);
+  animation: float 3s ease-in-out infinite;
+  filter: drop-shadow(0 10px 26px hsla(220 40% 2% / 0.18));
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  padding: 10px;
+}
+
+/* ====================================
+   ABOUT & USE CASE SECTIONS
+   ==================================== */
+
+.about-section,
+.usecase-section {
+  padding: clamp(30px, 6vw, 60px) clamp(16px, 4vw, 50px);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(var(--blur)) saturate(1.05);
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(1.05);
+  width: min(1100px, 92vw);
+  margin: 18px auto;
+}
+.about-section h2,
+.usecase-section h2 {
+  font-size: clamp(1.5rem, 3.4vw, 2rem);
+  margin-bottom: 12px;
+  color: var(--text);
+}
+.about-section p,
+.usecase-section ul {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.75;
+}
+.usecase-section ul { padding-left: 20px; margin: 0; }
+.usecase-section li { margin: 6px 0; }
+
+/* ====================================
+   FOOTER
+   ==================================== */
+.landing-footer {
+  background: var(--bg-elev);
+  color: var(--text);
+  text-align: center;
+  padding: 26px 16px;
+  font-size: 0.95rem;
+  border-top: 1px solid var(--border);
+}
+.landing-footer a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px dashed transparent;
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.landing-footer a:hover { border-bottom-color: currentColor; }
+
+/* ====================================
+   ANIMATIONS & MEDIA
+   ==================================== */
+@keyframes float {
+  0%, 100% { transform: translateY(0) }
+  50%      { transform: translateY(-10px) }
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px) }
+  to   { opacity: 1; transform: translateY(0) }
+}
+
+@media (max-width: 768px) {
+  .hero-section { flex-direction: column; text-align: center; }
+  .landing-header { flex-direction: column; gap: 10px; }
+  .landing-header nav ul { flex-direction: column; gap: 10px; }
+}
+
+/* ====================================
+   HIGH-CONTRAST MODE TWEAKS
+   ==================================== */
+html[data-theme="hc"] .landing-header,
+body[data-theme="hc"] .landing-header,
+html[data-theme="hc"] .about-section,
+body[data-theme="hc"] .about-section,
+html[data-theme="hc"] .usecase-section,
+body[data-theme="hc"] .usecase-section,
+html[data-theme="hc"] .dropdown-menu,
+body[data-theme="hc"] .dropdown-menu,
+html[data-theme="hc"] .hero-text {
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+html[data-theme="hc"] .landing-header,
+body[data-theme="hc"] .landing-header,
+html[data-theme="hc"] .about-section,
+body[data-theme="hc"] .about-section,
+html[data-theme="hc"] .usecase-section,
+body[data-theme="hc"] .usecase-section,
+html[data-theme="hc"] .dropdown-menu,
+body[data-theme="hc"] .dropdown-menu {
+  border-width: 2px;
+}
+
+/* FINAL micro-align: lift ONLY the Get Started pill */
+.landing-header nav ul li :where(button):not(.profile-trigger) {
+  position: relative;
+  top: -9px;            /* bump to -3px if it still looks 1px low on your screen */
+}
+
+/* Optional: don't offset on small screens */
+@media (max-width: 768px) {
+  .landing-header nav ul li :where(button):not(.profile-trigger) {
+    top: -9px;
+  }
+}
+
+/* Hide hero image on small screens; show on ≥769px */
+.hero-image { display: none !important; }
+
+@media (min-width: 769px) {
+  .hero-image { display: block !important; }
+}
+
+/* Signed-out fix: when there's NO profile pill, don't lift the button */
+.landing-header nav ul li:not(:has(.profile-container))
+  :where(button):not(.profile-trigger) {
+  position: static !important;  /* cancel the relative offset */
+  top: 0 !important;            /* restore normal spacing above */
+}
